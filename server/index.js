@@ -2,6 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -10,6 +15,9 @@ app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
+
+// Serve static frontend files in production
+app.use(express.static(path.join(__dirname, '../dist')));
 
 // Initialize Google Gen AI SDK
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
@@ -41,6 +49,11 @@ app.post('/api/chat', async (req, res) => {
     console.error('Gemini API Error:', error);
     res.status(500).json({ error: 'Failed to communicate with AI core.' });
   }
+});
+
+// Catch-all route to serve React index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 app.listen(PORT, () => {

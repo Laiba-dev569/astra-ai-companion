@@ -43,7 +43,7 @@ export default function App() {
 
     // Real AI Processing via our Node.js Backend
     try {
-      const response = await fetch('http://localhost:3000/api/chat', {
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text })
