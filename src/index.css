@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-glass-gradient backdrop-blur-[15px] border border-white/10 rounded-2xl p-6 shadow-glass pointer-events-auto transition-all duration-300;
+  }
+  
+  .glass-panel:hover {
+    @apply -translate-y-1 shadow-glow-cyan-lg border-neon-cyan/30;
+  }
+
+  .glow-text-cyan {
+    @apply text-neon-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.6)];
+  }
+
+  .glow-text-purple {
+    @apply text-neon-purple drop-shadow-[0_0_8px_rgba(168,85,247,0.6)];
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .hide-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-white/10 rounded;
+  }
+}
+
+.energy-pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.avatar-spin::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(transparent, rgba(255,255,255,0.3), transparent 30%);
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+  100% { transform: rotate(360deg); }
+}
